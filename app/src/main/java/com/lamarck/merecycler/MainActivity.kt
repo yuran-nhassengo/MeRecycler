@@ -1,5 +1,7 @@
 package com.lamarck.merecycler
 
+import android.content.Intent
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -27,8 +29,16 @@ class MainActivity : AppCompatActivity() {
 
     private fun initRecyclerView() {
 
-        this.liveAdapter = LiveAdapter()
+        this.liveAdapter = LiveAdapter{live ->
+            openLink(live.link)}
         recyclerview.layoutManager = LinearLayoutManager(this@MainActivity)
         recyclerview.adapter = this.liveAdapter
+    }
+
+    private fun openLink(url: String) {
+
+        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+        startActivity(intent)
+
     }
 }
